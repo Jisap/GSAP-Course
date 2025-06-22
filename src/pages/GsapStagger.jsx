@@ -1,5 +1,25 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
+
 const GsapStagger = () => {
-  // TODO: Implement the gsap.stagger() method
+  
+  useGSAP(() => {
+    gsap.to('.stagger-box', {
+      y: 250,
+      rotation: 360,
+      borderRadius: '100%',
+      repeat: -1,
+      yoyo: true,
+      stagger: {
+        amount: 1.5,        // duración total (en segundos) que se distribuirá entre el inicio de las animaciones de todos los elementos seleccionados. 
+        grid: [2,1],        // Indica a gsap que los elementos estarán en una cuadrícula de dos columnas y una fila.
+        axis: 'y',          // Indica a gsap que los elementos se distribuirán en la dirección vertical.
+        ease: 'circ.inOut', // Define la función de "easing" o aceleración que se aplica a la distribución de los retrasos
+        from: 'center',     // Indica a gsap que los elementos centrales serán los primeros en ser animados.
+      }
+    })
+  },[])
 
   return (
     <main>

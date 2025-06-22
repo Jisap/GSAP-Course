@@ -1,5 +1,31 @@
+import { ScrollTrigger } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const GsapScrollTrigger = () => {
-  // TODO: Implement the gsap scroll trigger
+  
+  const scrollRef = useRef();
+  useGSAP(() => {
+    const boxes = gsap.utils.toArray(scrollRef.current.children);
+    boxes.forEach((box) => {
+      gsap.to(box, {
+        x: 150 * (boxes.indexOf(box) + 5), // El propósito de esta línea es mover cada caja a una posición horizontal final diferente, creando un efecto de desplazamiento escalonado
+        rotation: 360,
+        borderRadius: '100%',
+        scale: 1.5,
+        scrollTrigger: {
+          trigger: box,
+          start: 'bottom bottom', // Empieza cuando el ref de scroll aparece en la parte inferior de la página
+          end: 'top 30%',         // Termina cuando el ref de scroll alcanza el 20% superior de la página
+          scrub: true,            // Activa el controlador de desplazamiento
+        },
+        ease: 'power1.inOut'
+      })
+    })
+  },{scope: scrollRef}) 
 
   return (
     <main>
@@ -51,7 +77,7 @@ const GsapScrollTrigger = () => {
         </svg>
       </div>
 
-      <div className="mt-20 w-full h-screen">
+      <div className="mt-20 w-full h-screen" ref={scrollRef}>
         <div
           id="scroll-pink"
           className="scroll-box w-20 h-20 rounded-lg bg-pink-500"

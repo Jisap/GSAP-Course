@@ -11,11 +11,11 @@ const GsapText = () => {
     })
 
     gsap.fromTo('.para', {
-      opacity: 0,
-      y: 20,
+      opacity: 0, 
+      y: 20,      // move the element 20 pixels down the page
     }, {
       opacity: 1,
-      y: 0,
+      y: 0,       // move the element back to its original position
       delay: 1,
       stagger: 0.1
     })
